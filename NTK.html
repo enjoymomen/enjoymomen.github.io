@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nguyễn Trường Khánh - Portfolio</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --background: #f8fafc;
+            --text: #1e293b;
+            --accent: #3b82f6;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --shadow: rgba(17, 12, 46, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --primary: #60a5fa;
+            --background: #0f172a;
+            --text: #f1f5f9;
+            --accent: #3b82f6;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --shadow: rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--text);
+            transition: all 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        nav {
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text);
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.5s forwards;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.5s 0.2s forwards;
+        }
+
+        .typed-text {
+            color: var(--primary);
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.5s 0.4s forwards;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px var(--shadow);
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .about-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px var(--shadow);
+            transition: 0.3s;
+        }
+
+        .about-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .about-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Skills Section */
+        .skills {
+            padding: 100px 0;
+            background: var(--card-bg);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: var(--background);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .skill-name {
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: var(--card-bg);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--primary);
+            width: 0;
+            transition: width 1s ease;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 100px 0;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .portfolio-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: 0.3s;
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(37, 99, 235, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background: var(--card-bg);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--background);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--card-bg);
+            border-radius: 10px;
+            background: var(--background);
+            color: var(--text);
+            transition: 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px var(--shadow);
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 0;
+            text-align: center;
+            background: var(--background);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links a {
+            color: var(--text);
+            font-size: 1.5rem;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: 0.3s;
+            z-index: 999;
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">Portfolio</a>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#portfolio">Portfolio</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Hi, I'm <span class="typed-text"></span></h1>
+                <p>A passionate web developer creating amazing digital experiences.</p>
+                <a href="#contact" class="cta-btn">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>About Me</h2>
+                <p>Get to know me better</p>
+            </div>
+            <div class="about-content">
+                <div class="about-card" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-laptop-code"></i>
+                    <h3>Web Development</h3>
+                    <p>Creating beautiful and functional websites using modern technologies.</p>
+                </div>
+                <div class="about-card" data-aos="fade-up" data-aos-delay="400">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Responsive Design</h3>
+                    <p>Ensuring perfect display across all devices and screen sizes.</p>
+                </div>
+                <div class="about-card" data-aos="fade-up" data-aos-delay="600">
+                    <i class="fas fa-rocket"></i>
+                    <h3>Performance</h3>
+                    <p>Optimizing for speed and efficiency without compromising quality.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>My Skills</h2>
+                <p>Technologies I work with</p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card" data-aos="fade-up">
+                    <div class="skill-name">HTML5</div>
+                    <div class="progress-bar">
+                        <div class="progress" data-width="95"></div>
+                    </div>
+                </div>
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="skill-name">CSS3</div>
+                    <div class="progress-bar">
+                        <div class="progress" data-width="90"></div>
+                    </div>
+                </div>
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="skill-name">JavaScript</div>
+                    <div class="progress-bar">
+                        <div class="progress" data-width="85"></div>
+                    </div>
+                </div>
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="skill-name">React</div>
+                    <div class="progress-bar">
+                        <div class="progress" data-width="80"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>My Work</h2>
+                <p>Recent projects I've worked on</p>
+            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-item" data-aos="fade-up">
+                    <img src="https://picsum.photos/400/300?random=1" alt="Project 1">
+                    <div class="portfolio-overlay">
+                        <h3>Project 1</h3>
+                        <p>Web Development</p>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://picsum.photos/400/300?random=2" alt="Project 2">
+                    <div class="portfolio-overlay">
+                        <h3>Project 2</h3>
+                        <p>UI/UX Design</p>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-aos="fade-up" data-aos-delay="400">
+                    <img src="https://picsum.photos/400/300?random=3" alt="Project 3">
+                    <div class="portfolio-overlay">
+                        <h3>Project 3</h3>
+                        <p>Mobile App</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Contact Me</h2>
+                <p>Let's work together</p>
+            </div>
+            <form class="contact-form" data-aos="fade-up">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://github.com/enjoymomen" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.facebook.com/nguyen.khanh.355630" target="_blank"><i class="fab fa-facebook"></i></a>
+            </div>
+            <p>&copy; 2023 Nguyễn Trường Khánh. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Typing Effect
+        new Typed('.typed-text', {
+            strings: ['Nguyễn Trường Khánh', 'a Web Developer', 'a Designer', 'a Creator'],
+            typeSpeed: 100,
+            backSpeed: 50,
+            loop: true
+        });
+
+        // Particles.js
+        particlesJS('particles-js',
+            {
+                "particles": {
+                    "number": {
+                        "value": 80,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#3b82f6"
+                    },
+                    "shape": {
+                        "type": "circle"
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": false
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#3b82f6",
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 6,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "repulse"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    }
+                },
+                "retina_detect": true
+            }
+        );
+
+        // Theme Toggle
+        const themeToggle = document.querySelector('.theme-toggle');
+        const body = document.body;
+        
+        themeToggle.addEventListener('click', () => {
+            body.dataset.theme = body.dataset.theme === 'dark' ? 'light' : 'dark';
+            themeToggle.innerHTML = body.dataset.theme === 'dark' ? 
+                '<i class="fas fa-sun"></i>' : 
+                '<i class="fas fa-moon"></i>';
+        });
+
+        // Progress Bars Animation
+        const progressBars = document.querySelectorAll('.progress');
+        
+        const animateProgress = () => {
+            progressBars.forEach(progress => {
+                const width = progress.dataset.width;
+                progress.style.width = width + '%';
+            });
+        };
+
+        // Intersection Observer for Progress Bars
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateProgress();
+                }
+            });
+        });
+
+        document.querySelector('.skills-grid').querySelectorAll('.skill-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Back to Top Button
+        const backToTop = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 100) {
+                backToTop.classList.add('active');
+            } else {
+                backToTop.classList.remove('active');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth Scroll for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Form Submission
+        const form = document.querySelector('.contact-form');
+        
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Add your form submission logic here
+            alert('Message sent successfully!');
+            form.reset();
+        });
+    </script>
+</body>
+</html>
